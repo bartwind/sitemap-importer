@@ -39,7 +39,11 @@
      */
     static function getPageUrl(string $path, string $query) : string
     {
-        return rtrim($path) . "?" . rtrim($query);
+        $queryGlue = '?';
+        if ($path == '/' || empty($path)) {
+            $queryGlue = null;
+        }
+        return rtrim($path) . $queryGlue . rtrim($query);
     }
 
     /**
@@ -170,7 +174,7 @@
                         $urlParsed[self::QUERY_IDX] = null;
                     }
                     $urlQuery = rtrim($urlParsed[self::QUERY_IDX]);
-                    $sitemapArrayFormatted[$urlHost][$urlPath][] = $urlQuery;
+                    $sitemapArrayFormatted[$urlHost][] = self::getPageUrl($urlPath, $urlQuery);
                 }
             }
         }
