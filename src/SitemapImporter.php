@@ -10,6 +10,10 @@
 
  class SitemapImporter
  {
+    const LOC_IDX   = 'loc';
+    const HOST_IDX  = 'host';
+    const PATH_IDX  = 'path';
+    const QUERY_IDX = 'query';
 
     /**
      * @var null|string
@@ -133,8 +137,31 @@
         }
 
         $this->setXmlArray($xmlArray);
-
         $sitemapArrayFormatted = [];
+
+        if (is_array($xmlArray) && !empty($xmlArray)) {
+            $xmlArray = reset($xmlArray);
+            if (count($xmlArray)) {
+                foreach ($xmlArray as $urlArray) {
+                    $urlParsed = parse_url($urlArray[self::LOC_IDX]);
+
+                    if (isset($urlParsed[self::HOST_IDX])) {
+                        if (!isset($urlParsed[self::PATH_IDX])) {
+                            $urlParsed[self::PATH_IDX] = '/';
+                        }
+                    }
+
+                    $urlHost = rtrim($urlParsed[self::HOST_IDX]);
+                    $urlPath = rtrim($urlParsed[self::PATH_IDX]);
+
+                    if (!isset($urlParsed[self::QUERY_IDX])) {
+                        $urlParsed[self::QUERY_IDX] = null;
+                    }
+                    $urlQuery = rtrim($urlParsed[self::QUERY_IDX]);
+                    $sitemapArrayFormatted[$urlHost][$urlPath][] = $urlQuery;
+                }
+            }
+        }
 
         $this->setSitemapArray($sitemapArrayFormatted);
     }
