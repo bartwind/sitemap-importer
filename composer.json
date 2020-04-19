@@ -3,7 +3,7 @@
     "type": "library",
     "version": "1.0.0",
     "description": "Sitemap XML importer",
-    "keywords": ["sitemap", "import", "xml"],
+    "keywords": ["sitemap", "import", "xml", "website"],
     "license": "MIT",
     "authors": [
         {
