@@ -31,6 +31,18 @@
     private $sitemapArray = [];
 
     /**
+     * Get page url formatted
+     *
+     * @param string $path
+     * @param string $query
+     * @return string
+     */
+    static function getPageUrl(string $path, string $query) : string
+    {
+        return rtrim($path) . "?" . rtrim($query);
+    }
+
+    /**
      * SitemapImporter constructor
      *
      * @param string $source
