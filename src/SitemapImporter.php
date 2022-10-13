@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sitemap XML importer (update)
+ * Sitemap XML importer (update v2)
  */
 
  namespace Bartwind\SitemapImporter;
